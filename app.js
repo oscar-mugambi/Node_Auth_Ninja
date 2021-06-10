@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const authRoutes = require("./routes/authRoutes")
 const cookieParser = require("cookie-parser")
 const { requireAuth, checkUser } = require("./middleware/authMiddleware")
+require("dotenv").config()
 const app = express()
 const { Router } = require("express")
 const router = Router()
@@ -17,6 +18,8 @@ app.use(cookieParser())
 // view engine
 app.set("view engine", "ejs")
 
+const port = process.env.PORT || 3000
+
 // database connection
 const dbURI =
   "mongodb+srv://oscarninja:Notorious97@cluster0.vkyid.mongodb.net/ninja-auth"
@@ -26,7 +29,7 @@ mongoose
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
-  .then((result) => app.listen(3000))
+  .then((result) => app.listen(port))
   .catch((err) => console.log(err))
 
 // routes
